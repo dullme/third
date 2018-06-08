@@ -42,6 +42,9 @@ function getBorrowTypeName() {
  * 获取阿里云 OSS 地址
  */
 function getOssUri($uri){
+    if($uri == '')
+        return '';
+    
     $client = App::make('aliyun-oss');
 
     return $client->signUrl(env('OSS_BUCKET'), ltrim($uri, './'));
