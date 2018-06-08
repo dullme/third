@@ -29,7 +29,7 @@
                     <img src = "img/indexAccount.png" style = "width: 60px;padding-left: 10px; padding-top: 10px;">
                 </div>
                 <dvi class = "divSpan">
-                    <div onclick = "goRecharge()"style = "padding:30px 0 0 35px;">账户管理</div>
+                    <div onclick = "goRecharge()"style = "padding:30px 0 0 35px;">立即充值</div>
                 </dvi>
             </div>
             <div class = "div">

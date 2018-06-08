@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\models\DebtApply;
+use App\Models\DebtApply;
 use Illuminate\Http\Request;
 
 class DebtController extends Controller
