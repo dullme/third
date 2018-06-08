@@ -24,7 +24,7 @@ class AccountController extends Controller {
         try {
             $rechargeHistory = $xiaoJiKeJi->getRechargeHistory([
                 'requestNo'   => time() . rand(100000, 999999),
-                'userNo'      => 4272,//Auth()->user()->xj_user_id,
+                'userNo'      => Auth()->user()->xj_user_id,
                 'startTime'   => $request->get('startTime', ''),
                 'endTime'     => $request->get('endTime', time()),
                 'timestamp'   => time(),
