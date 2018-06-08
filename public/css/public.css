@@ -1,0 +1,20 @@
+.img{
+    width: 30px;
+    position: relative;
+    top: 14px;
+    left: 15px;
+}
+.spanLeft,.spanLeft2,.spanLeft3{
+    height: 60px;
+    width: 10px;
+    color: rgba(70, 73, 85);
+    display: block;
+    float: left;
+}
+.trueSpan{
+    background-color: #ff9900;
+    color: #ff9900;
+}
+.trueDiv{
+    background-color: #666666;
+}
