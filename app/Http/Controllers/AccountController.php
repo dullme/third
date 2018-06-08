@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DebtApply;
 use App\Tools\XiaoJiKeji;
+use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 
@@ -37,10 +38,41 @@ class AccountController extends Controller {
         } catch (GuzzleException $e) {
         }
 
-        $debt = DebtApply::where('status', 7)->get();
-        $totalCount = count($debt);
-        $totalBorrowMoney = $debt->sum('borrow_money');
+        $debts = DebtApply::with(['borrowMoneyWithPlan' => function($query) use($request){
+            $query->where('plan_date', Carbon::tomorrow());
+        }])->where('agreement_id', '!=', NULL)
+            ->where('status', 7)
+            ->select('id', 'agreement_id')->get();
+
+        $debts = $debts->map(function ($debt){
+            return $debt->borrowMoneyWithPlan->sum('actual_amount');
+        });
+
+        $totalCount = count(array_filter($debts->toArray()));
+        $totalBorrowMoney = $debts->sum();
 
         return view('account.account', compact('balance', 'totalCount', 'totalBorrowMoney', 'rechargeHistory'));
+    }
+
+    public function getTotalCountAndTotalBorrowMoney(Request $request) {
+        $this->validate($request, [
+            'date' => 'date_format:Y-m-d'
+        ]);
+
+        $debts = DebtApply::with(['borrowMoneyWithPlan' => function($query) use($request){
+            $query->where('plan_date', $request->get('date', Carbon::today()));
+        }])->where('agreement_id', '!=', NULL)
+            ->where('status', 7)
+            ->select('id', 'agreement_id')->get();
+
+        $debts = $debts->map(function ($debt){
+                return $debt->borrowMoneyWithPlan->sum('actual_amount');
+        });
+
+        return response()->json([
+            'totalCount' => count(array_filter($debts->toArray())),
+            'totalBorrowMoney' => $debts->sum(),
+        ]);
+
     }
 }

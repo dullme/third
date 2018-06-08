@@ -108,21 +108,21 @@
         <div class = "header2">
             <div style = "text-align:center;">
                 <img src = "img/time.png" style = "width: 30px;position: relative;top: 10px;right: 4px;">
-                <input class = "layui-input" style = "width:100px;" id = "date1" placeholder="选择时间"/>
+                <input class = "layui-input" style = "width:100px;" id = "date1" placeholder="{{ \Carbon\Carbon::tomorrow()->toDateString() }}"/>
             </div>
             <div>
                 <div style = "float:left;text-align:center;width:370px;border-right:1px solid #ccc;">
                     <div>
                         <img src = "img/number.png">
                     </div>
-                    <div style = "font-size: 30px;">{{ $totalCount }}</div>
+                    <div id="total-count" style = "font-size: 30px;">{{ $totalCount }}</div>
                     <div style = "margin-top:10px;color:#666;">待还债权数量(个)</div>
                 </div>
                 <div style = "float:left;text-align:center;width:370px;">
                     <div>
                         <img src = "img/RMB.png">
                     </div>
-                    <div style = "font-size: 30px;">{{ $totalBorrowMoney }}</div>
+                    <div id="total-borrowMoney" style = "font-size: 30px;">{{ $totalBorrowMoney }}</div>
                     <div style = "margin-top:10px;color:#666;">待还金额(元)</div>
                 </div>
             </div>
@@ -224,7 +224,8 @@
                 <form class="form-horizontal" method="POST" action="{{ route('recharge') }}">
                     {{ csrf_field() }}
                     <div>
-                        <input id="amount" type="amount" style = "width: 300px;height: 50px;border-radius: 5px;border: 1px solid #ccc;padding-left: 5px;" class="form-control" name="amount" required placeholder="请输入充值金额,需大于5元">
+                        <input id="amount" type="amount" style = "width: 300px;height: 50px;border-radius: 5px;border: 1px solid #ccc;padding-left: 5px;" class="form-control" name="amount" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required placeholder="请输入充值金额,需大于5元">
                     </div>
                     <div>
                         <input  type="submit" value = "充值" onclick="recharge()"/>
@@ -294,7 +295,22 @@
         $('#table1').hide();
     }
     laydate.render({
-        elem: '#date1'
+        elem: '#date1',done: function (value, date, endDate) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type : "POST",
+                url : "{{ url('account/count-money') }}",
+                // dataType : "json",
+                data:{'date':value },
+                success : function(data) {
+                    $('#total-borrowMoney').html(data.totalBorrowMoney);
+                    $('#total-count').html(data.totalCount);
+                    console.log(totalBorrowMoney);
+                }
+            });
+        }
     });
 </script>
 @endsection

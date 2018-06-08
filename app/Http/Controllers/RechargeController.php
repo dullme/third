@@ -14,7 +14,7 @@ class RechargeController extends Controller
 
     public function recharge(Request $request) {
         $this->validate($request, [
-            'amount' => 'required|integer'
+            'amount' => 'required|integer|min:1'
         ]);
 
         $orderNo = rand(1000000000, 9999999999);

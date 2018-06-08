@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class DebtApply extends Model
@@ -12,6 +13,12 @@ class DebtApply extends Model
     public function borrowMoney() {
         return $this->hasMany(BorrowMoney::class, 'agreement_id', 'agreement_id')
             ->with('loanPlan')
+            ->select(['id','online_status', 'agreement_id', 'actual_amount', 'plan_date']);
+    }
+
+    public function borrowMoneyWithPlan() {
+        return $this->hasMany(BorrowMoney::class, 'agreement_id', 'agreement_id')
+            ->where('online_status','!=', 3)
             ->select(['id','online_status', 'agreement_id', 'actual_amount', 'plan_date']);
     }
 

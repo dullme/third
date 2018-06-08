@@ -55,7 +55,7 @@
     <script src="{{ asset('js/jquery/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/public.js') }}"></script>
 </head>
-<body style = "background-color: rgba(242, 242, 242, 1);margin:0;height:100%;width:100%;">
+<body style = "background-color: rgba(242, 242, 242, 1);margin:0;height:100%;width:100%; overflow-x:hidden ">
 <div style = "z-index:999;width:100%;height:100%">
     <div style = "background-color: rgba(70, 73, 85, 1);height:50px;width:100%;position: fixed;z-index:999;">
         <span style = "color:#fff;padding:5px;position: fixed;">小鸡惠普</span>

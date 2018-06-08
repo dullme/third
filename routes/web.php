@@ -14,9 +14,12 @@
 
 
 Route::get('test', function (){
-    $debts = \App\Models\DebtApply::with('agreement')
-        ->get();
+    $debts = \App\Models\DebtApply::with(['borrowMoneyWithPlan' => function($query){
+        $query->where('plan_date', '2018-06-17');
+    }])->get();
 
+
+//    $debts = \App\Models\BorrowMoney::where('plan_date', \Carbon\Carbon::today())->get();
     dd($debts->toArray());
 });
 
@@ -49,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('call-back', 'RechargeController@callBack');
 
     Route::get('account', 'AccountController@showAccountPage')->name('account');
+    Route::post('account/count-money', 'AccountController@getTotalCountAndTotalBorrowMoney');
     Route::get('debt', 'DebtController@showDebtPage')->name('debt');
     Route::get('debt/{id}', 'DebtController@detail');
     Route::get('debt/plan/{id}', 'DebtController@plan');
