@@ -118,7 +118,7 @@
                 <span>失败原因:{{ $result['message'] }}</span>
             </div>
         @endif
-        <a href="{{ route('account') }}" class = "alertButton">返回资金管理</a>
+        <a href="{{ route('account') }}" class = "alertButton">返回账户管理</a>
     </div>
 
 @endsection
