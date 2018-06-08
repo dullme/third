@@ -133,6 +133,7 @@
             <span onclick = "chongzhi()" id = "clickSpan1" class = "clickSpan clickTrue">充值扣款记录</span>
         </div>
         <div>
+            @if(isset($rechargeHistory['data']))
             <table id = "table1" cellspacing="0" style = "border:1px solid #ccc;width:1150px;text-align:center;margin-top:20px;background-color:#fff;">
                 <tr class = "trHeader">
                     <th style = "width:50px;">ID</th>
@@ -183,6 +184,7 @@
 
             </table>
 
+
             <div class="text-center">
                 <ul class="pagination">
                     @if($rechargeHistory['page']['currentPage'] == 1)
@@ -207,6 +209,8 @@
 
                 </ul>
             </div>
+
+            @endif
 
         </div>
     </div>
