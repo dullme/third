@@ -32,7 +32,7 @@ class DebtController extends Controller
                 $query->whereIdCard($params['id_card']);
             }
             if(!empty($params['status'])) {
-                $query->whereStatus($params['status']);
+                $query->whereIn('status', [7,8]);
             }
             if(!empty($params['start']) && !empty($params['end'])) {
                 $query->whereBetween('create_time', [$params['start'], $params['end']]);
