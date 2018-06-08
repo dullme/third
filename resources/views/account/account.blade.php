@@ -148,7 +148,7 @@
                     <tr>
                         <th scope="row">{{ $rechargeHistory['page']['firstRow']++ }}</th>
                         <td>{{ $item['billno'] }}</td>
-                        <td>{{ $item['success_time'] }}</td>
+                        <td>{{ date('Y-m-d',$item['success_time']) }}</td>
                         <td>
                             @if($item['recharge_way'] == 'PROXY')
                                 扣款
@@ -162,7 +162,11 @@
                             @if( $item['status'] = 0 )
                                 未支付
                             @elseif( $item['status'] = 1 )
-                                充值成功
+                                @if($item['recharge_way'] == 'PROXY')
+                                    扣款成功
+                                @else
+                                    充值成功
+                                @endif
                             @elseif( $item['status'] = 2 )
                                 签名不正确
                             @elseif( $item['status'] = 3 )
