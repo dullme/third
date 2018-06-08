@@ -265,11 +265,6 @@
         $('#leftDiv2').addClass('trueDiv');
         $('#span2').addClass('trueSpan');
     });
-    function recharge(){
-        $("#show").hide();
-        // $('#showSuccess').show();
-        $('#showErr').show();
-    }
     function closeSuccess(){
         $('#showSuccess').hide();
     }
