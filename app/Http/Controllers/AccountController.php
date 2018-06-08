@@ -29,7 +29,7 @@ class AccountController extends Controller {
                 'endTime'     => $request->get('endTime', time()),
                 'timestamp'   => time(),
                 'rechargeWay' => $request->get('rechargeWay', ''), //充值 1 扣款 PROXY
-                'epage' => 5,
+                'epage' => 20,
                 'page' => $request->get('page', 1),
             ]);
             if(isset($rechargeHistory['page']))

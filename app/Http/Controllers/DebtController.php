@@ -37,7 +37,7 @@ class DebtController extends Controller
             if(!empty($params['start']) && !empty($params['end'])) {
                 $query->whereBetween('create_time', [$params['start'], $params['end']]);
             }
-        })->orderBy('create_time', 'DESC')->paginate(5);
+        })->orderBy('create_time', 'DESC')->paginate(20);
 
         $collection = collect($debts->items())->map(function ($debt) {
             $debt['repayment_list'] = $debt['borrowMoney']->map(function($item){
