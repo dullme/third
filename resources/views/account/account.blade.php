@@ -146,40 +146,42 @@
                     <th style = "width:150px;">失败原因</th>
                 </tr>
                 @foreach($rechargeHistory['data'] as $key=>$item)
-                    <tr>
-                        <th scope="row">{{ $rechargeHistory['page']['firstRow']++ }}</th>
-                        <td>{{ $item['billno'] }}</td>
-                        <td>
-                            @if($item['status'] == 1)
-                                {{ date('Y-m-d',$item['success_time']) }}
-                            @endif
-                        </td>
-                        <td>
-                            @if($item['recharge_way'] == 'PROXY')
-                                扣款
-                            @else
-                                充值
-                            @endif
-                        </td>
-                        <td>{{ $item['money'] }}</td>
-{{--                        <td>{{ $item['money'] }}</td>--}}
-                        <td>
-                            @if( $item['status'] == 0 )
-                                充值中
-                            @elseif( $item['status'] == 1 )
-                                @if($item['recharge_way'] == 'PROXY')
-                                    扣款成功
-                                @else
-                                    充值成功
+                    @if($item['status'] != 0)
+                        <tr>
+                            <th scope="row">{{ $rechargeHistory['page']['firstRow']++ }}</th>
+                            <td>{{ $item['billno'] }}</td>
+                            <td>
+                                @if($item['status'] == 1)
+                                    {{ date('Y-m-d H:i',$item['success_time']) }}
                                 @endif
-                            @elseif( $item['status'] == 2 )
-                                签名不正确
-                            @elseif( $item['status'] == 3 )
-                                充值失败
-                            @endif
-                        </td>
-                        <td></td>
-                    </tr>
+                            </td>
+                            <td>
+                                @if($item['recharge_way'] == 'PROXY')
+                                    扣款
+                                @else
+                                    充值
+                                @endif
+                            </td>
+                            <td>{{ $item['money'] }}</td>
+    {{--                        <td>{{ $item['money'] }}</td>--}}
+                            <td>
+                                @if( $item['status'] == 0 )
+                                    充值中
+                                @elseif( $item['status'] == 1 )
+                                    @if($item['recharge_way'] == 'PROXY')
+                                        扣款成功
+                                    @else
+                                        充值成功
+                                    @endif
+                                @elseif( $item['status'] == 2 )
+                                    签名不正确
+                                @elseif( $item['status'] == 3 )
+                                    充值失败
+                                @endif
+                            </td>
+                            <td></td>
+                        </tr>
+                    @endif
                 @endforeach
 
             </table>

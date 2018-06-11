@@ -131,6 +131,7 @@
             <div style="padding-bottom:30px;">
                 <!-- Torm -->
                 <form class="form-inline" method="get" action="{{ route('debt') }}">
+                    <input type="hidden" name="type" value="{{ $request->get('type') }}">
                     <input class="input" type="text" name="name" value="{{ $request->get('name') }}"
                            placeholder="客户姓名"/>
                     <input class="input" style="margin-left:20px;" type="text" name="mobile"
@@ -142,6 +143,12 @@
                     <span>至</span>
                     <input class="input layui-input" style="width: 150px;" id="date2" name="end"
                            value="{{ $request->get('end') }}" placeholder="放款时间" autocomplete="off"/>
+                    <select name="status" style="display: none">
+                        <option value ="" >请选择</option>
+                        @foreach(getDebtStatus() as $key=>$item)
+                            <option value ="{{ $key }}" {{ $request->get('status') == $key ? 'selected="selected"' : '' }} >{{ $item }}</option>
+                        @endforeach
+                    </select>
                     <input type="submit" value="搜索"/>
                 </form>
                 <!-- End form -->
