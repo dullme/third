@@ -10,7 +10,7 @@ class BorrowMoney extends Model
     protected $table = "hc_borrow_money";
 
     public function loanPlan() {
-        return $this->belongsTo(LoanPlan::class, 'id', 'pay_id')
+        return $this->hasOne(LoanPlan::class, 'pay_id', 'id')
             ->select(['pay_id', 'term', 'agreement_id']);
     }
 }
