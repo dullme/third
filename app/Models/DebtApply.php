@@ -13,6 +13,12 @@ class DebtApply extends Model
     public function borrowMoney() {
         return $this->hasMany(BorrowMoney::class, 'agreement_id', 'agreement_id')
             ->with('loanPlan')
+            ->where([
+                'amount_type' => 1,
+                'trader_type' => 1,
+                'fund_flow' => 1,
+                'status' => 1,
+            ])
             ->select(['id','online_status', 'agreement_id', 'actual_amount', 'plan_date']);
     }
 
