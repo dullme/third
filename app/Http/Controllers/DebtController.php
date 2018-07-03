@@ -42,8 +42,10 @@ class DebtController extends Controller
 
         $collection = collect($debts->items())->map(function ($debt) {
             $debt['repayment_list'] = $debt['borrowMoney']->map(function($item){
-                $item['term'] = $item->loanPlan->term;
-                unset($item['loanPlan']);
+                if($item->loanPlan){
+                    $item['term'] = $item->loanPlan->term;
+                    unset($item['loanPlan']);
+                }
                 return $item;
             });
             $month_rate = isset($debt->agreement->month_rate)?$debt->agreement->month_rate:0;
