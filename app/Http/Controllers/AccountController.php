@@ -41,6 +41,7 @@ class AccountController extends Controller {
         $debts = DebtApply::with(['borrowMoneyWithPlan' => function($query) use($request){
             $query->where('plan_date', Carbon::tomorrow());
         }])->where('agreement_id', '!=', NULL)
+            ->where('company', Auth()->user()->company)
             ->whereIn('status', [7,8])
             ->select('id', 'agreement_id')->get();
 
@@ -62,6 +63,7 @@ class AccountController extends Controller {
         $debts = DebtApply::with(['borrowMoneyWithPlan' => function($query) use($request){
             $query->where('plan_date', $request->get('date', Carbon::today()));
         }])->where('agreement_id', '!=', NULL)
+            ->where('company', Auth()->user()->company)
             ->whereIn('status', [7,8])
             ->select('id', 'agreement_id')->get();
 
