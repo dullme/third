@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->integer('xj_user_id')->unsigned()->default(0)->comment('小鸡用户ID');
             $table->string('name');
+            $table->string('company')->comment('公司标识');
             $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();

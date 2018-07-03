@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DebtApply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DebtController extends Controller
 {
@@ -37,7 +38,7 @@ class DebtController extends Controller
             if(!empty($params['start']) && !empty($params['end'])) {
                 $query->whereBetween('create_time', [$params['start'], $params['end']]);
             }
-        })->orderBy('create_time', 'DESC')->paginate(20);
+        })->where('company', Auth()->user()->company)->orderBy('create_time', 'DESC')->paginate(20);
 
         $collection = collect($debts->items())->map(function ($debt) {
             $debt['repayment_list'] = $debt['borrowMoney']->map(function($item){
@@ -56,7 +57,7 @@ class DebtController extends Controller
     }
 
     public function detail($id) {
-        $debt = DebtApply::findOrFail($id);
+        $debt = DebtApply::where('company', Auth()->user()->company)->findOrFail($id);
 
         return view('debt.detail', compact('debt'));
     }

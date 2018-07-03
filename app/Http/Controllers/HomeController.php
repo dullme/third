@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $debts = DebtApply::all();
+        $debts = DebtApply::where('company', Auth()->user()->company)->get();
         $count = $debts->count();
         $money = $debts->sum('borrow_money');
 
