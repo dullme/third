@@ -68,7 +68,7 @@
                 </dv>
                 <div class="divSpan2">
                     <div class="divDiv">债权总金额</div>
-                    <div class="divDiv" style="padding-bottom:5px;">{{ $money }}万</div>
+                    <div class="divDiv" style="padding-bottom:5px;">{{ $money }}</div>
                 </div>
             </div>
             <div class="div">
@@ -77,7 +77,7 @@
                 </dv>
                 <div class="divSpan2">
                     <div class="divDiv">明日待还</div>
-                    <div class="divDiv" style="padding-bottom:5px;">12,000万</div>
+                    <div class="divDiv" style="padding-bottom:5px;">{{ $total }}</div>
                 </div>
             </div>
         </div>
