@@ -230,8 +230,7 @@
                 <form class="form-horizontal" method="POST" action="{{ route('recharge') }}">
                     {{ csrf_field() }}
                     <div>
-                        <input id="amount" type="amount" style = "width: 300px;height: 50px;border-radius: 5px;border: 1px solid #ccc;padding-left: 5px;" class="form-control" name="amount" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
-                               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required placeholder="请输入充值金额,需大于5元">
+                        <input id="amount" type="amount" style = "width: 300px;height: 50px;border-radius: 5px;border: 1px solid #ccc;padding-left: 5px;" class="form-control" name="amount" required placeholder="请输入充值金额,需大于5元">
                     </div>
                     <div>
                         <input  type="submit" value = "充值" onclick="recharge()"/>

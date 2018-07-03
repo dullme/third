@@ -80,8 +80,8 @@ class XiaoJiKeji {
             'requestNo' => time().rand(100000,999999),
             'userNo' => $userNo,
         ]);
-
-        if(is_null($res) || $this->getRespData($res->getBody())['resultCode'] != 0000){
+	
+	if(is_null($res) || $this->getRespData($res->getBody())['resultCode'] != 0000){
             return 0;
         }
 
@@ -96,8 +96,8 @@ class XiaoJiKeji {
      */
     public function getRechargeHistory($data) {
         $res = $this->postXiaoJi('QUERY_RECHARGE_HISTORY', $data);
-
-        if(is_null($res) || $this->getRespData($res->getBody())['resultCode'] != 0000){
+        
+	if(is_null($res) || $this->getRespData($res->getBody())['resultCode'] != 0000){
             return [];
         }
 

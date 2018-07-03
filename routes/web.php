@@ -14,13 +14,6 @@
 
 
 Route::get('test', function (){
-    $debts = \App\Models\DebtApply::with(['borrowMoneyWithPlan' => function($query){
-        $query->where('plan_date', '2018-06-17');
-    }])->get();
-
-
-//    $debts = \App\Models\BorrowMoney::where('plan_date', \Carbon\Carbon::today())->get();
-    dd($debts->toArray());
 });
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
