@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssetPool;
 use App\Models\DebtApply;
 use App\Tools\XiaoJiKeji;
 use Carbon\Carbon;
+use function foo\func;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 
@@ -52,7 +54,32 @@ class AccountController extends Controller {
         $totalCount = count(array_filter($debts->toArray()));
         $totalBorrowMoney = $debts->sum();
 
-        return view('account.account', compact('balance', 'totalCount', 'totalBorrowMoney', 'rechargeHistory'));
+        $bond_id = collect($rechargeHistory['data'])->pluck('bond_id')->toArray();
+
+        $members =  AssetPool::with(['member' => function($query){
+            return $query->select('id', 'name', 'phonenumber1', 'idnumber');
+        }])->whereIn('id', $bond_id)
+            ->select('id', 'member_id')->get();
+
+        $members = $members->map(function ($item){
+            return [
+                'id' => $item->id,
+                'name' => $item->member->name,
+                'phonenumber1' => $item->member->phonenumber1,
+                'idnumber' => $item->member->idnumber,
+            ];
+        });
+
+        $rechargeHistory['data']  = collect($rechargeHistory['data'])->map(function ($item) use ($members){
+            $member = $members->where('id', $item['bond_id'])->values()->first();
+            $item['name'] =  $member['name'];
+            $item['phonenumber1'] =  $member['phonenumber1'];
+            $item['idnumber'] =  $member['idnumber'];
+            return $item;
+        });
+
+
+        return view('account.account', compact('balance', 'totalCount', 'totalBorrowMoney', 'rechargeHistory', 'members'));
     }
 
     public function getTotalCountAndTotalBorrowMoney(Request $request) {

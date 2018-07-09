@@ -142,7 +142,7 @@
                     <th style = "width:100px;">类型</th>
                     <th style = "width:120px;">充值金额(元)</th>
                     <th style = "width:50px;">状态</th>
-                    <th style = "width:150px;">备注</th>
+                    <th style = "width:150px;">借款人信息</th>
                 </tr>
                 @foreach($rechargeHistory['data'] as $key=>$item)
                     <tr>
@@ -156,9 +156,9 @@
                                 充值
                             @endif
                         </td>
-                        <td>{{ $item['money'] }}</td>
+                        <td>{{ printf('%.1f', $item['money']) }}</td>
                         <td>{{ $item['status'] }}</td>
-                        <td>{{ $item['response_message'] }}</td>
+                        <td>{{ $item['name'] }} - {{ $item['phonenumber1'] }} - {{ $item['idnumber'] }}</td>
                     </tr>
                 @endforeach
 
