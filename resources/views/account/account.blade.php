@@ -151,7 +151,7 @@
                         <td>{{ date('Y-m-d H:i',$item['add_time']) }}</td>
                         <td>
                             @if($item['type'] == 'borrow_repayment')
-                                扣款
+                                <span style="color: red">扣款</span>
                             @else
                                 充值
                             @endif
