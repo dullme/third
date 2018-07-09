@@ -97,13 +97,13 @@ class XiaoJiKeji {
     public function getRechargeHistory($data) {
         $res = $this->postXiaoJi('QUERY_RECHARGE_HISTORY', $data);
         
-	if(is_null($res) || $this->getRespData($res->getBody())['resultCode'] != 0000){
+	    if(is_null($res) || $this->getRespData($res->getBody()->getContents())['resultCode'] != 0000){
             return [];
         }
 
         return [
-            'data' => $this->getRespData($res->getBody())['rechargeHistory'],
-            'page' => $this->getRespData($res->getBody())['page'],
+            'data' => $this->getRespData($res->getBody()->getContents())['rechargeHistory'],
+            'page' => $this->getRespData($res->getBody()->getContents())['page'],
         ];
     }
 
