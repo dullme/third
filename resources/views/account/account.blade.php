@@ -141,47 +141,25 @@
                     <th style = "width:150px;">日期</th>
                     <th style = "width:100px;">类型</th>
                     <th style = "width:120px;">充值金额(元)</th>
-                    {{--<th style = "width:120px;">账户余额(元)</th>--}}
                     <th style = "width:50px;">状态</th>
-                    <th style = "width:150px;">失败原因</th>
+                    <th style = "width:150px;">备注</th>
                 </tr>
                 @foreach($rechargeHistory['data'] as $key=>$item)
-                    @if($item['status'] != 0)
-                        <tr>
-                            <th scope="row">{{ $rechargeHistory['page']['firstRow']++ }}</th>
-                            <td>{{ $item['billno'] }}</td>
-                            <td>
-                                @if($item['status'] == 1)
-                                    {{ date('Y-m-d H:i',$item['success_time']) }}
-                                @endif
-                            </td>
-                            <td>
-                                @if($item['recharge_way'] == 'PROXY')
-                                    扣款
-                                @else
-                                    充值
-                                @endif
-                            </td>
-                            <td>{{ $item['money'] }}</td>
-    {{--                        <td>{{ $item['money'] }}</td>--}}
-                            <td>
-                                @if( $item['status'] == 0 )
-                                    充值中
-                                @elseif( $item['status'] == 1 )
-                                    @if($item['recharge_way'] == 'PROXY')
-                                        扣款成功
-                                    @else
-                                        充值成功
-                                    @endif
-                                @elseif( $item['status'] == 2 )
-                                    签名不正确
-                                @elseif( $item['status'] == 3 )
-                                    充值失败
-                                @endif
-                            </td>
-                            <td></td>
-                        </tr>
-                    @endif
+                    <tr>
+                        <th scope="row">{{ $rechargeHistory['page']['firstRow']++ }}</th>
+                        <td>{{ $item['billno'] }}</td>
+                        <td>{{ date('Y-m-d H:i',$item['add_time']) }}</td>
+                        <td>
+                            @if($item['type'] == 'borrow_repayment')
+                                扣款
+                            @else
+                                充值
+                            @endif
+                        </td>
+                        <td>{{ $item['money'] }}</td>
+                        <td>$item['status']</td>
+                        <td>{{ $item['response_message'] }}</td>
+                    </tr>
                 @endforeach
 
             </table>
