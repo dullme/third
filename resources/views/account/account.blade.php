@@ -90,6 +90,9 @@
         border-radius: 5px !important;
         color: #fff !important;
     }
+    p{
+        margin: 0;
+    }
 </style>
 @endsection
 @section('content')
@@ -156,9 +159,9 @@
                                 充值
                             @endif
                         </td>
-                        <td>{{ $item['money'] }}</td>
+                        <td>{{ number_format($item['money'], 2, '.', '') }}</td>
                         <td>{{ $item['status'] }}</td>
-                        <td>{{ $item['name'] }} - {{ $item['phonenumber1'] }} - {{ $item['idnumber'] }}</td>
+                        <td><p>{{ $item['name'] }}</p><p>{{ $item['phonenumber1'] }}</p><p>{{ $item['idnumber'] }}</p></td>
                     </tr>
                 @endforeach
 
