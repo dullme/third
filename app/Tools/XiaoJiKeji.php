@@ -95,15 +95,15 @@ class XiaoJiKeji {
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getRechargeHistory($data) {
-        $res = $this->postXiaoJi('QUERY_RECHARGE_HISTORY', $data);
+        $res = $this->postXiaoJi('QUERY_CAPITAL_HISTORY', $data);
         
-	    if(is_null($res) || $this->getRespData($res->getBody()->getContents())['resultCode'] != 0000){
+	    if(is_null($res) || $this->getRespData($res->getBody())['resultCode'] != 0000){
             return [];
         }
 
         return [
-            'data' => $this->getRespData($res->getBody()->getContents())['rechargeHistory'],
-            'page' => $this->getRespData($res->getBody()->getContents())['page'],
+            'data' => $this->getRespData($res->getBody())['capitalHistory'],
+            'page' => $this->getRespData($res->getBody())['page'],
         ];
     }
 
