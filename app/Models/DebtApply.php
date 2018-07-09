@@ -29,7 +29,6 @@ class DebtApply extends Model
     }
 
     public function agreement() {
-        return $this->belongsTo(Agreement::class, 'agreement_id', 'id')
-            ->select(['id','month_rate']);
+        return $this->belongsTo(Agreement::class, 'agreement_id', 'id');
     }
 }
