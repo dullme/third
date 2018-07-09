@@ -156,7 +156,7 @@
                                 充值
                             @endif
                         </td>
-                        <td>{{ printf('%.1f', $item['money']) }}</td>
+                        <td>{{ $item['money'] }}</td>
                         <td>{{ $item['status'] }}</td>
                         <td>{{ $item['name'] }} - {{ $item['phonenumber1'] }} - {{ $item['idnumber'] }}</td>
                     </tr>
