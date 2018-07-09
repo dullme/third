@@ -157,7 +157,7 @@
                             @endif
                         </td>
                         <td>{{ $item['money'] }}</td>
-                        <td>$item['status']</td>
+                        <td>{{ $item['status'] }}</td>
                         <td>{{ $item['response_message'] }}</td>
                     </tr>
                 @endforeach
